@@ -2,9 +2,9 @@
 
 set -e
 
-cargo build
+cargo build --release
 
-exe_path=$(cargo build --message-format=json | python -c "import json, sys; print ''.join([filename for [filename] in [json.loads(line)['filenames'] for line in sys.stdin.readlines()] if not filename.endswith('.rlib')])")
+exe_path=target/release/user-netns
 exe_name=$(basename ${exe_path})
 full_path=/usr/local/bin/${exe_name}
 
