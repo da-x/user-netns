@@ -100,7 +100,7 @@ fn run(args: &[String], uid : u32)
 fn ip<I, S>(args: I)
     where I: IntoIterator<Item=S>, S: AsRef<::std::ffi::OsStr>
 {
-    Command::new("ip").args(args).status().expect("'ip' execution failed");
+    Command::new("/sbin/ip").args(args).status().expect("'ip' execution failed");
 }
 
 fn net_add(args: &[String])
