@@ -113,7 +113,7 @@ fn net_add(args: &[String])
     let netname = check_netname(&args[0]);
     let ipaddr = check_ipaddr(&args[1]);
 
-	ip(&["link", "add", netname, "type", "bridge"]);
+    ip(&["link", "add", netname, "type", "bridge"]);
     ip(&["addr", "add", ipaddr, "dev", netname]);
     ip(&["link", "set", netname, "up"]);
 }
@@ -127,7 +127,7 @@ fn net_del(args: &[String])
 
     let netname = check_netname(&args[0]);
 
-	ip(&["link", "del", netname]);
+    ip(&["link", "del", netname]);
 }
 
 fn namespace_add(args: &[String])
@@ -170,8 +170,8 @@ fn net_link_namespace(args: &[String])
     let br_end = format!("{}-{}-br", netname, namespace);
     let br_end = br_end.as_str();
 
-	let ns_end = format!("{}-{}-ns", netname, namespace);
-	let ns_end = ns_end.as_str();
+    let ns_end = format!("{}-{}-ns", netname, namespace);
+    let ns_end = ns_end.as_str();
 
     ip(&["link", "add", "dev", br_end, "type", "veth", "peer", "name", ns_end]);
     ip(&["link", "set", br_end, "master", netname]);
@@ -199,23 +199,23 @@ fn net_unlink_namespace(args: &[String])
 }
 
 /*
-	e=user-netns
+   e=user-netns
 
-	# Example usage
-	$e net-add net55 192.168.55.250/24
+   # Example usage
+   $e net-add net55 192.168.55.250/24
 
-	$e namespace-add h1
-	$e namespace-add h2
-	$e net-link-namespace net55 h1 192.168.55.1/24
-	$e net-link-namespace net55 h2 192.168.55.2/24
+   $e namespace-add h1
+   $e namespace-add h2
+   $e net-link-namespace net55 h1 192.168.55.1/24
+   $e net-link-namespace net55 h2 192.168.55.2/24
 
-	$e net-unlink-namespace net55 h1
-	$e net-unlink-namespace net55 h2
-	$e namespace-del h1
-	$e namespace-del h2
+   $e net-unlink-namespace net55 h1
+   $e net-unlink-namespace net55 h2
+   $e namespace-del h1
+   $e namespace-del h2
 
-	$e net-del net55
-*/
+   $e net-del net55
+   */
 
 fn main() {
     let args : Vec<String> = args().collect();
